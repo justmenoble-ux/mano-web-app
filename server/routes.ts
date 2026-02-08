@@ -1,8 +1,8 @@
+import { setupAuth, isAuthenticated } from "./auth/google";
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
-import { setupAuth, registerAuthRoutes, isAuthenticated } from "./replit_integrations/auth";
 import { registerChatRoutes } from "./replit_integrations/chat";
 import { registerImageRoutes } from "./replit_integrations/image";
 import { batchProcess } from "./replit_integrations/batch";
@@ -77,8 +77,7 @@ export async function registerRoutes(
   app: Express
 ): Promise<Server> {
   // Auth & Integrations
-  await setupAuth(app);
-  registerAuthRoutes(app);
+  setupAuth(app);   // Google OAuth
   registerChatRoutes(app);
   registerImageRoutes(app);
 
